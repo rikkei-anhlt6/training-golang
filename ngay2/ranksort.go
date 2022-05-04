@@ -48,15 +48,15 @@ func main() {
 	var slice1 = []int{1, 2, 5, 2, 1, 60, 3}
 	rank_list := make(chan []int)
 	go khoitaorank(slice1, rank_list)
-	// gán rank bằng rank_list
+	//
 	rank := <-rank_list
 	ranksort_trave := make(chan []int)
 	go rankSort(slice1, rank, ranksort_trave)
-	// hám rank_sort bằng ranksort_trave
+	//
 	ranksort := <-ranksort_trave
 	arr_sort := make(chan []int)
 	go sortlist(slice1, ranksort, arr_sort)
-	// gán kq bằng arr sort
+	//
 	kq := <-arr_sort
 	fmt.Print("Mang ban dau: ")
 	in(slice1)
