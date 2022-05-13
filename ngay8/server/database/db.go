@@ -10,7 +10,7 @@ import (
 const (
 	DB_USERNAME = "root"
 	DB_PASSWORD = "12345678"
-	DB_NAME     = "user"
+	DB_NAME     = "user1"
 	DB_HOST     = "localhost"
 	DB_PORT     = "3306"
 )

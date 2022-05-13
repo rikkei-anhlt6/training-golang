@@ -2,14 +2,22 @@ package main
 
 import (
 	"bufio"
+	"encoding/json"
 	"fmt"
 	"log"
 	"net"
+	"socket/server/database"
+	"socket/server/models"
+
+	"gorm.io/gorm"
 )
 
-func main() {
-	server, err := net.Listen("tcp", ":3002")
+var db *gorm.DB
 
+func main() {
+	db = database.InitDB()
+	server, err := net.Listen("tcp", ":3003")
+	db.AutoMigrate(&models.User{})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -25,6 +33,10 @@ func main() {
 			if err1 != nil {
 				break
 			}
+			user := models.User{}
+			json.Unmarshal([]byte(msg), &user)
+			db.Create(&user)
+
 		}
 	}
 }
